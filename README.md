@@ -1,7 +1,7 @@
 Ansible Role: win_kibana
 ========================
 
-[![Build Status](https://travis-ci.org/dohque/ansible-role-win-kibana.svg?branch=master)](https://travis-ci.org/dohque/ansible-role-win-kibana)
+[![Build Status](https://travis-ci.org/dohque/ansible-role-win-kibana.svg?branch=release)](https://travis-ci.org/dohque/ansible-role-win-kibana)
 
 An Ansible Role that installs Kibana on Windows.
 
