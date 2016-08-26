@@ -1,0 +1,17 @@
+---
+
+- name: Ensure kibana is installed
+  win_chocolatey:
+    name: kibana -y --allow-empty-checksums
+    version: "{{ kibana_version }}"
+    state: present
+
+- name: Ensure configuration kibana.yml is generated
+  win_template:
+    src: kibana.yml.j2
+    dest: "{{kibana_home}}/config/kibana.yml"
+  notify: kibana restart
+
+- name: Ensure kibana service is started
+  win_service: name=kibana-service start_mode=auto state=started
+  notify: kibana restart

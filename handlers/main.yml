@@ -1,0 +1,4 @@
+---
+
+- name: kibana restart
+  win_service: name=kibana-service state=restarted
