@@ -172,6 +172,7 @@ galaxy_info:
     - monitoring
     - system
     - web
+    - development
     - elk
     - elasticstack
     - visualization
