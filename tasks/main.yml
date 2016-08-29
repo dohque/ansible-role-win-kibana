@@ -15,3 +15,13 @@
 - name: Ensure kibana service is started
   win_service: name=kibana-service start_mode=auto state=started
   notify: kibana restart
+
+- name: Ensure kiban port {{ kibana_server_port }} is opened
+  win_firewall_rule:
+    name: kibana
+    enable: yes
+    state: present
+    localport: "{{ kibana_server_port }}"
+    action: allow
+    direction: In
+    protocol: TCP
