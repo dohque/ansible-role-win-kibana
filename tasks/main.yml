@@ -16,6 +16,8 @@
   win_service: name=kibana-service start_mode=auto state=started
   notify: kibana restart
 
+# TODO: default host is 127.0.0.1 in this case no need to open port
+# Think on reasonable compatible defaults
 - name: Ensure kiban port {{ kibana_server_port }} is opened
   win_firewall_rule:
     name: kibana
