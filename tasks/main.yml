@@ -2,9 +2,14 @@
 
 - name: Ensure kibana is installed
   win_chocolatey:
-    name: kibana -y --allow-empty-checksums
+    name: kibana --allow-empty-checksums
     version: "{{ kibana_version }}"
+    # Workaround: broken chocolatey package with wrong checksums
+    # ignore_checksums: true
+    # allow_empty_checksums: true
     state: present
+  # TODO: Turn on for new ansible 2.2
+  # notify: kibana restart
 
 - name: Ensure configuration kibana.yml is generated
   win_template:
@@ -16,14 +21,15 @@
   win_service: name=kibana-service start_mode=auto state=started
   notify: kibana restart
 
-# TODO: default host is 127.0.0.1 in this case no need to open port
-# Think on reasonable compatible defaults
 - name: Ensure kiban port {{ kibana_server_port }} is opened
   win_firewall_rule:
     name: kibana
     enable: yes
     state: present
+    # Workaround: ansible issue with default profile
+    profile: "Domain,Private,Public"
     localport: "{{ kibana_server_port }}"
     action: allow
     direction: In
     protocol: TCP
+  when: "{{ kibana_server_host != '127.0.0.1' }}"
