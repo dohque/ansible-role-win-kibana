@@ -2,14 +2,13 @@
 
 - name: Ensure kibana is installed
   win_chocolatey:
-    name: kibana --allow-empty-checksums
+    name: kibana
     version: "{{ kibana_version }}"
     # Workaround: broken chocolatey package with wrong checksums
-    # ignore_checksums: true
-    # allow_empty_checksums: true
+    ignore_checksums: true
+    allow_empty_checksums: true
     state: present
-  # TODO: Turn on for new ansible 2.2
-  # notify: kibana restart
+  notify: kibana restart
 
 - name: Ensure configuration kibana.yml is generated
   win_template:
